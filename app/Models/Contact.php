@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
+
+    /**
+     * Undocumented variable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'phone',
+        'message',
+    ];
 }

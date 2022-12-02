@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('contact');
-});
+Route::get('/', App\Http\Controllers\Web\MainController::class)->name('main.index');
+Route::post('/', [App\Http\Controllers\Web\MainController::class,'store'])->name('main.store');

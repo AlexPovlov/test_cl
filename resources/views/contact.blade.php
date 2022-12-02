@@ -65,30 +65,36 @@
                             <!-- .entry-content -->
                             <div class="entry-content">
                                 
-                                
-                                
-                                  
                                   <!-- .contact-form -->
                                   <div class="contact-form">
                                     
-                                      <form id="contact-form" class="validate-form" method="post" action="/">
+                                      <form id="contact-form" class="validate-form" method="post" action="{{route('main.store')}}">
                                         
                                         <!-- enter mail subject here -->
                                         @csrf
                                         
                                         <p>
                                           <label for="name">ФИО</label>
-                                          <input type="text" name="name" id="name" class="required">
+                                          <input type="text" name="name" id="name" class="required" value="{{old('name')}}">
+                                            @if ($errors->has('name'))
+                                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                            @endif
                                         </p>
                                         
                                         <p>
-                                          <label for="number">Телефон</label>
-                                          <input type="text" name="number" id="number" class="required number">
+                                          <label for="phone">Телефон</label>
+                                          <input type="text" name="phone" id="phone" class="required" value="{{old('phone')}}">
+                                            @if ($errors->has('phone'))
+                                                <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                            @endif
                                         </p>
                                         
                                         <p>
                                           <label for="message">Сообщение</label>
-                                          <textarea name="message" id="message" class="required"></textarea>
+                                          <textarea name="message" id="message" class="required">{{old('message')}}</textarea>
+                                            @if ($errors->has('message'))
+                                                <span class="text-danger">{{ $errors->first('message') }}</span>
+                                            @endif
                                         </p>
                                        
                                         <p>
