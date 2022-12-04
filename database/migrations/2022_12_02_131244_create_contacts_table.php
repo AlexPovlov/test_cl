@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->text('message');
+            $table->boolean('finished')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

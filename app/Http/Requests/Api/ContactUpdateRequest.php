@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Web;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MainStoreRequest extends FormRequest
+class ContactUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

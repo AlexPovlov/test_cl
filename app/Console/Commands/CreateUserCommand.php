@@ -31,17 +31,10 @@ class CreateUserCommand extends Command
     public function handle()
     {
         $data = $this->arguments();
-        $validator = Validator::make($data,
-        [
-            'login' => ['required'],
-            'password' => ['required'],
-        ]);
-
-        $validate = $validator->validated();
         
         $user = User::firstOrCreate(
-            ['login' => $validate['login']],
-            ['password' => Hash::make($validate['password'])]
+            ['login' => $data['login']],
+            ['password' => Hash::make($data['password'])]
         );
 
         $token = $user->createToken('token',['*'],now()->addDay());
