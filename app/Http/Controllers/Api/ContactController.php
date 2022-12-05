@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\RespondsWithHttpStatus;
 use App\Http\Requests\Api\ContactUpdateRequest;
 use App\Http\Resources\ContactResource;
@@ -15,6 +14,40 @@ class ContactController extends Controller
     use RespondsWithHttpStatus;
 
     /**
+     * @OA\Get(
+     *     path="/contacts",
+     *     operationId="contactsAll",
+     *     tags={"Contacts"},
+     *     summary="Display a listing of the resource",
+     *     security={
+     *       {"api_key": {}},
+     *     },
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="The page number",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Everything is fine",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 
+     *                 
+     *             )
+     *         )
+     *     ),
+     * )
+     *
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
      * Получение всех записей
      *
      * @return \Illuminate\Http\JsonResponse
