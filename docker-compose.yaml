@@ -1,0 +1,71 @@
+version: '3.3'
+
+services:
+  nginx:
+    # build: 
+    #   context: .
+    #   dockerfile: _docker/nginx/nginx.dockerfile
+    image: nginx:latest
+    volumes:
+     - ./:/var/www
+     - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+    ports: 
+      - 81:80
+    depends_on: 
+      - app
+    networks:
+      - app-network
+    
+  app: &base_app
+    build: 
+      context: .
+      dockerfile: _docker/app/app.dockerfile
+    volumes:
+     - ./:/var/www
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  queue:
+    <<: *base_app
+    restart: always
+    command: php artisan queue:work
+
+  # scheduler:
+  #   <<: *base_app
+  #   restart: always
+  #   command: php artisan schedule:run
+
+
+  db:
+    image: mysql
+    cap_add:
+      - SYS_NICE
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: 
+      - 3307:3306
+      - 33061:33060
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=mydb
+    container_name: database
+    
+    networks:
+      - app-network
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   restart: always
+  #   environment:
+  #     - PMA_HOST=mysql
+  #   ports:
+  #     - 82:80
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
+    
