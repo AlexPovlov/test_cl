@@ -19,41 +19,393 @@
                 "tags": [
                     "Contacts"
                 ],
-                "summary": "Display a listing of the resource",
-                "operationId": "contactsAll",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "The page number",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "description": "Получение всех заявок",
+                "operationId": "7b8056a6c305d3995f6d8cc46d3cae65",
                 "responses": {
                     "200": {
-                        "description": "Everything is fine",
+                        "description": "The data",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
                             }
                         }
                     }
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/finished": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Получение всех законченных или не законченных заявок",
+                "operationId": "8a04b2468f9b6382105b0b6b7a5386bd",
+                "parameters": [
+                    {
+                        "parameter": "finished",
+                        "name": "finished",
+                        "in": "query",
+                        "description": "Get параметр для сортировки заявок",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/get-deleted": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Получение всех удаленых заявок",
+                "operationId": "0be1abce42161b96c278eda01a56c051",
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/get/{phone}": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Получение всех заявок по номеру",
+                "operationId": "5b96ec8ea12edff600d75b035ba8883c",
+                "parameters": [
+                    {
+                        "parameter": "phone",
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Url параметр для сортировки заявок по номеру",
+                        "required": true,
+                        "example": 7900
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/{id}": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Получение одной заявки",
+                "operationId": "371008c3a140dc687487e65c833b4c05",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "Url параметр для получения заявки по id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Редактирование заявки",
+                "operationId": "988ee956022c57234f5b5871a911543d",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "Url параметр id заявки",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUpdateContact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Пометка заявки что она удалена",
+                "operationId": "aa6804ea70c88459eaa3b88c8bab0195",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "Url параметр id заявки",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/{id}/finished": {
+            "put": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Пометка заявки что она закончена",
+                "operationId": "74b336a76cce2ac06b2ab360cad9702e",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "Url параметр id заявки",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/contacts/{id}/restore": {
+            "put": {
+                "tags": [
+                    "Contacts"
+                ],
+                "description": "Восстановление заявки",
+                "operationId": "b720525c73000922597f3746a405f8e9",
+                "parameters": [
+                    {
+                        "parameter": "id",
+                        "name": "id",
+                        "in": "path",
+                        "description": "Url параметр id заявки",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseContactData"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
                     }
                 ]
             }
         }
     },
     "components": {
+        "schemas": {
+            "RequestUpdateContact": {
+                "title": "contacts data",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "type": "string",
+                        "default": "Александр",
+                        "maxLength": 255,
+                        "minLength": 3
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "type": "string",
+                        "default": "79009898989"
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "default": "Отредактированое сообщение",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseContactData": {
+                "title": "contacts data",
+                "properties": {
+                    "success": {
+                        "title": "success",
+                        "type": "boolean"
+                    },
+                    "data": {
+                        "title": "data",
+                        "properties": {
+                            "contacts": {
+                                "title": "contacts",
+                                "properties": {
+                                    "id": {
+                                        "title": "id",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "title": "name",
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "title": "phone",
+                                        "type": "string"
+                                    },
+                                    "message": {
+                                        "title": "message",
+                                        "type": "string"
+                                    },
+                                    "finished": {
+                                        "title": "finished",
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "title": "created_at",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
-            "Authorization": {
+            "sanctum": {
                 "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
                 "name": "Authorization",
                 "in": "header"
             }
@@ -62,7 +414,7 @@
     "tags": [
         {
             "name": "Contacts",
-            "description": "Апи работы с заявками сайта"
+            "description": "Методы работы с заявками сайта"
         }
     ]
 }

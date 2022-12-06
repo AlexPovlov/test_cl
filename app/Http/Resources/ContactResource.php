@@ -4,8 +4,13 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use function PHPSTORM_META\type;
+
+
 class ContactResource extends JsonResource
 {
+
+    
     /**
      * Transform the resource into an array.
      *
